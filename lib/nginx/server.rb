@@ -3,25 +3,12 @@ require 'pathname'
 require 'erb'
 require 'suppress_output'
 
-# Backport ERB#result_with_hash for Rubies older than 2.5.
-unless ERB.method_defined? :result_with_hash
-  class ERB
-    def result_with_hash hash
-      b = Object.new.send :binding
-      hash.each do |key, value|
-        b.local_variable_set key, value
-      end
-      result b
-    end
-  end
-end
-
 module Nginx
   class Server
     def initialize template,
-      dir: "/tmp/nginx.#{Process.pid}.#{SecureRandom.uuid}", **vars
+      dir: "/tmp/nginx.#{Process.pid}.#{SecureRandom.uuid}"
       @dir = Pathname dir; @dir.mkpath
-      create_config template, vars
+      create_config template
     end
 
     def start
@@ -35,9 +22,25 @@ module Nginx
       `kill #{@nginx_pid}`
     end
 
+    def error_log
+      'error.log'
+    end
+
+    def access_log
+      'access.log'
+    end
+
+    def pid
+      'nginx.pid'
+    end
+
+    def first_upstream
+      "#{@dir}/first.sock"
+    end
+
     private
-      def create_config template, vars
-        string = ERB.new(IO.read template).result_with_hash(vars)
+      def create_config template
+        string = ERB.new(IO.read template).result(binding)
         IO.write "#{@dir}/nginx.conf", string
       end
   end
