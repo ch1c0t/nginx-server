@@ -1,0 +1,22 @@
+events { 
+  worker_connections 1024;
+}
+
+error_log <%= error_log %>;
+pid <%= pid %>;
+
+http {
+  access_log <%= access_log %>;
+
+  upstream first_upstream {
+    server unix:<%= first_upstream %>;
+  }
+
+  server {
+    listen 127.0.0.1:8080;
+
+    location /first/ {
+      proxy_pass http://first_upstream/;
+    }
+  }
+}
