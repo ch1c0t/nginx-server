@@ -34,10 +34,6 @@ module Nginx
       'nginx.pid'
     end
 
-    def first_upstream
-      "#{@dir}/first.sock"
-    end
-
     private
       def create_config template
         string = ERB.new(IO.read template).result(binding)
