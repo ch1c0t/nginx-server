@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    nginx-server (0.0.0)
+      suppress_output
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    suppress_output (0.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  nginx-server!
+
+BUNDLED WITH
+   1.16.1
