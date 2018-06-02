@@ -6,4 +6,5 @@ Gem::Specification.new do |g|
   g.authors = ['Anatoly Chernow']
 
   g.add_dependency 'suppress_output'
+  g.add_dependency 'puma'
 end
