@@ -1,0 +1,3 @@
+add_header 'Access-Control-Allow-Origin' * always;
+add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, HEAD' always;
+add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept" always;

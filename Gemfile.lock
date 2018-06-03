@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nginx-server (0.0.0)
+    nginx-server (0.0.1)
       puma
       suppress_output
 
